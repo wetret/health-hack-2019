@@ -5,7 +5,7 @@
 #define CURRENTLOW 6
 #define POINTSTART A0
 #define POINTEND A1
-#define maxCounter 200
+#define maxCounter 400
 
 void setup() {
   pinMode(ENABLE, OUTPUT);
@@ -28,12 +28,12 @@ void loop() {
  
   if(incoming > 0)
   {
-    execute(HIGH, incoming);
+    execute(LOW, incoming);
   }
 
   if(incoming < 0)
   {
-    execute(LOW, incoming);
+    execute(HIGH, incoming);
   }
 }
 
@@ -64,6 +64,7 @@ void execute(int turnDirection, int distance)
     }
     
     counter++;
+    delay(2000);
   }
 
   digitalWrite(ENABLE, HIGH);
