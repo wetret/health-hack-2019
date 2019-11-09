@@ -34,7 +34,7 @@ def init(value):
 
 @app.route("/increase/<steps>/", methods=['GET'])
 def increase(steps):
-    arduino.write('f'.encode())
+    arduino.write(steps.encode())
 
     return_value = {
         "type": "increase",
@@ -47,7 +47,7 @@ def increase(steps):
 
 @app.route("/decrease/<steps>/", methods=['GET'])
 def decrease(steps):
-    arduino.write('b'.encode())
+    arduino.write(steps.encode())
 
     return_value = {
       "type": "decrease",
