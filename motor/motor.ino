@@ -3,7 +3,7 @@
 #define DIRECTION 3
 #define CLOCK 4
 #define CURRENTLOW 6
-#define maxCounter 200
+#define maxCounter 440
 
 void setup() {
   pinMode(ENABLE, OUTPUT);
@@ -26,12 +26,12 @@ void loop() {
  
   if(incoming > 0)
   {
-    execute(HIGH, incoming);
+    execute(LOW, incoming);
   }
 
   if(incoming < 0)
   {
-    execute(LOW, incoming);
+    execute(HIGH, incoming);
   }
 }
 
