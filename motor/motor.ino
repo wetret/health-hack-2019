@@ -18,22 +18,24 @@ void setup() {
 }
 
 void loop() {  
-  char incoming = Serial.read(); 
+
+  while (Serial.available() == 0)
+  {}
+  
+  int incoming = Serial.parseInt();
  
-  if(incoming == 'f')
+  if(incoming > 0)
   {
-    execute(LOW);
+    execute(LOW, incoming);
   }
 
-  if(incoming == 'b')
+  if(incoming < 0)
   {
-    execute(HIGH);
+    execute(HIGH, incoming);
   }
-
-  incoming = 'n';
 }
 
-void execute(int turnDirection) 
+void execute(int turnDirection, int distance) 
 {
   Serial.println("start turn");
   
@@ -41,7 +43,7 @@ void execute(int turnDirection)
   digitalWrite(ENABLE, LOW);
 
   int counter = 0;
-  while(counter < maxCounter) 
+  while(counter < maxCounter * abs(distance)) 
   {    
     digitalWrite(CLOCK, HIGH);   
     delay(2);                    
