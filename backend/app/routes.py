@@ -1,11 +1,19 @@
 from app import app
 from flask import Response
 import json
+import serial
+
+
+arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600)
 
 
 @app.before_first_request
 def init_server():
     print("Init server..")
+    try:
+       arduino.open()
+    except Exception:
+        print("Arduino port already open")
 
 
 @app.route("/")
@@ -15,15 +23,10 @@ def hello():
 
 @app.route("/init/<value>")
 def init(value):
-    return "Deine Mutti hat value"
-
-
-@app.route("/decrease/<steps>/", methods=['GET'])
-def decrease(steps):
     return_value = {
-      "type": "decrease",
-      "value": steps,
-      "success": "true"
+        "type": "init",
+        "value": value,
+        "success": "true"
     }
 
     return Response(json.dumps(return_value), mimetype="application/json")
@@ -31,10 +34,25 @@ def decrease(steps):
 
 @app.route("/increase/<steps>", methods=['GET'])
 def increase(steps):
+    arduino.write('f'.encode())
+
     return_value = {
         "type": "increase",
         "value": steps,
         "success": "true"
+    }
+
+    return Response(json.dumps(return_value), mimetype="application/json")
+
+
+@app.route("/decrease/<steps>/", methods=['GET'])
+def decrease(steps):
+    arduino.write('b'.encode())
+
+    return_value = {
+      "type": "decrease",
+      "value": steps,
+      "success": "true"
     }
 
     return Response(json.dumps(return_value), mimetype="application/json")
