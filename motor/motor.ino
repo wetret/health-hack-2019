@@ -3,7 +3,7 @@
 #define DIRECTION 3
 #define CLOCK 4
 #define CURRENTLOW 6
-#define maxCounter 2000
+#define maxCounter 200
 
 void setup() {
   pinMode(ENABLE, OUTPUT);

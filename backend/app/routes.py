@@ -32,7 +32,7 @@ def init(value):
     return Response(json.dumps(return_value), mimetype="application/json")
 
 
-@app.route("/increase/<steps>", methods=['GET'])
+@app.route("/increase/<steps>/", methods=['GET'])
 def increase(steps):
     arduino.write('f'.encode())
 
