@@ -3,9 +3,13 @@
 #define DIRECTION 3
 #define CLOCK 4
 #define CURRENTLOW 6
+<<<<<<< HEAD
 #define POINTSTART A0
 #define POINTEND A1
 #define maxCounter 400
+=======
+#define maxCounter 440
+>>>>>>> 184f2926e5b6ac8c64b64e7919dd43185c703015
 
 void setup() {
   pinMode(ENABLE, OUTPUT);
