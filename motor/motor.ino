@@ -3,6 +3,8 @@
 #define DIRECTION 3
 #define CLOCK 4
 #define CURRENTLOW 6
+#define POINTSTART A0
+#define POINTEND A1
 #define maxCounter 200
 
 void setup() {
@@ -45,11 +47,22 @@ void execute(int turnDirection, int distance)
   int counter = 0;
   while(counter < maxCounter * abs(distance)) 
   {    
+    // Move
     digitalWrite(CLOCK, HIGH);   
     delay(2);                    
     digitalWrite(CLOCK, LOW);    
     delay(2);  // wait for a second
 
+    // Check (Start) Endpoint
+    if(turnDirection == LOW && analogRead(POINTSTART) > 10) {
+      break;
+    }
+
+    // Check (End) Endpoint
+    if(turnDirection == HIGH && analogRead(POINTEND) > 10) {
+      break;
+    }
+    
     counter++;
   }
 
