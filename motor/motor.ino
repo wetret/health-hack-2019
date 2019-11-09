@@ -47,12 +47,6 @@ void execute(int turnDirection, int distance)
   int counter = 0;
   while(counter < maxCounter * abs(distance)) 
   {    
-    // Move
-    digitalWrite(CLOCK, HIGH);   
-    delay(2);                    
-    digitalWrite(CLOCK, LOW);    
-    delay(2);  // wait for a second
-
     // Check (Start) Endpoint
     if(turnDirection == LOW && analogRead(POINTSTART) > 10) {
       break;
@@ -63,11 +57,18 @@ void execute(int turnDirection, int distance)
       break;
     }
     
+    // Move
+    digitalWrite(CLOCK, HIGH);   
+    delay(2);                    
+    digitalWrite(CLOCK, LOW);    
+    delay(2);  // wait for a second
+    
     counter++;
-    delay(2000);
   }
 
   digitalWrite(ENABLE, HIGH);
-
+  delay(2000);
+  Serial.flush();
+  
   Serial.println("end turn");
 }
