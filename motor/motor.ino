@@ -28,12 +28,12 @@ void loop() {
  
   if(incoming > 0)
   {
-    execute(LOW, incoming);
+    execute(HIGH, incoming);
   }
 
   if(incoming < 0)
   {
-    execute(HIGH, incoming);
+    execute(LOW, incoming);
   }
 }
 

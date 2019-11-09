@@ -34,25 +34,46 @@ def init(value):
 
 @app.route("/increase/<steps>/", methods=['GET'])
 def increase(steps):
-    arduino.write('f'.encode())
+    if check(steps):
+        arduino.write(steps.encode())
 
-    return_value = {
-        "type": "increase",
-        "value": steps,
-        "success": "true"
-    }
+        return_value = {
+            "type": "increase",
+            "value": steps,
+            "success": "true"
+        }
 
-    return Response(json.dumps(return_value), mimetype="application/json")
+        return Response(json.dumps(return_value), mimetype="application/json")
+    else:
+        return_value = {
+            "error": "steps to high"
+        }
+
+        return Response(json.dumps(return_value), mimetype="application/json", status=400)
 
 
 @app.route("/decrease/<steps>/", methods=['GET'])
 def decrease(steps):
-    arduino.write('b'.encode())
+    if check(steps):
+        arduino.write(steps.encode())
 
-    return_value = {
-      "type": "decrease",
-      "value": steps,
-      "success": "true"
-    }
+        return_value = {
+          "type": "decrease",
+          "value": steps,
+          "success": "true"
+        }
 
-    return Response(json.dumps(return_value), mimetype="application/json")
+        return Response(json.dumps(return_value), mimetype="application/json")
+    else:
+        return_value = {
+            "error": "steps to high"
+        }
+
+        return Response(json.dumps(return_value), mimetype="application/json", status=400)
+
+
+def check(steps):
+    if int(steps) > 16:
+        return False
+
+    return True
