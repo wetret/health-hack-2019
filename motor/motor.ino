@@ -48,14 +48,17 @@ void execute(int turnDirection, int distance)
   while(counter < maxCounter * abs(distance)) 
   {    
     // Check (Start) Endpoint
-    if(turnDirection == LOW && analogRead(POINTSTART) > 10) {
+    if(turnDirection == LOW && analogRead(POINTSTART) > 100) {
       break;
     }
 
     // Check (End) Endpoint
-    if(turnDirection == HIGH && analogRead(POINTEND) > 10) {
+    if(turnDirection == HIGH && analogRead(POINTEND) > 100) {
       break;
     }
+
+    Serial.println(analogRead(POINTEND));
+    Serial.println(analogRead(POINTSTART));
     
     // Move
     digitalWrite(CLOCK, HIGH);   
