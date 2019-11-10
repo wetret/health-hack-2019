@@ -7,6 +7,10 @@ import serial
 arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600)
 
 
+states = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12]
+current_state_index = 0
+
+
 @app.before_first_request
 def init_server():
     print("Init server..")
@@ -21,11 +25,14 @@ def hello():
     return "Hello World!"
 
 
-@app.route("/init/<value>")
-def init(value):
+@app.route("/init/")
+def init():
+    arduino.write(("-" + str(10)).encode())
+    current_state_index = 0
+
     return_value = {
         "type": "init",
-        "value": value,
+        "value": 2,
         "success": "true"
     }
 

@@ -56,9 +56,6 @@ void execute(int turnDirection, int distance)
     if(turnDirection == HIGH && analogRead(POINTEND) > 100) {
       break;
     }
-
-    Serial.println(analogRead(POINTEND));
-    Serial.println(analogRead(POINTSTART));
     
     // Move
     digitalWrite(CLOCK, HIGH);   
