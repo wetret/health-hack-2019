@@ -16,6 +16,7 @@ def init_server():
     print("Init server..")
     try:
        arduino.open()
+       print("Arduino port opened")
     except Exception:
         print("Arduino port already open")
 
@@ -28,11 +29,12 @@ def hello():
 @app.route("/init/")
 def init():
     arduino.write(("-" + str(10)).encode())
+    global current_state_index
     current_state_index = 0
 
     return_value = {
         "type": "init",
-        "value": 2,
+        "value": states[current_state_index],
         "success": "true"
     }
 
@@ -44,9 +46,12 @@ def increase(steps):
     if check(steps):
         arduino.write(str(steps).encode())
 
+        global current_state_index
+        current_state_index = current_state_index + int(steps)
+
         return_value = {
             "type": "increase",
-            "value": steps,
+            "value": states[current_state_index],
             "success": "true"
         }
 
@@ -64,9 +69,12 @@ def decrease(steps):
     if check(steps):
         arduino.write(("-" + str(steps)).encode())
 
+        global current_state_index
+        current_state_index = current_state_index - int(steps)
+
         return_value = {
           "type": "decrease",
-          "value": steps,
+          "value": states[current_state_index],
           "success": "true"
         }
 
@@ -80,7 +88,7 @@ def decrease(steps):
 
 
 def check(steps):
-    if int(steps) > 16:
+    if int(steps) > 10:
         return False
 
     return True
