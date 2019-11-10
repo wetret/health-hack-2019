@@ -20,6 +20,8 @@ def init_server():
     except Exception:
         print("Arduino port already open")
 
+    arduino.write(("-" + str(10)).encode())
+
 
 @app.route("/")
 def hello():
