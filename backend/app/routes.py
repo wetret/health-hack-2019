@@ -50,7 +50,7 @@ def increase(steps):
         global current_state_index
         current_state_index = current_state_index + int(steps)
 
-        if current_state_index >= len(states):
+        if current_state_index >= len(states)-1:
             current_state_index = 9
 
         return_value = {
