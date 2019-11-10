@@ -29,6 +29,7 @@ def hello():
 @app.route("/init/")
 def init():
     arduino.write(("-" + str(10)).encode())
+
     global current_state_index
     current_state_index = 0
 
@@ -48,6 +49,9 @@ def increase(steps):
 
         global current_state_index
         current_state_index = current_state_index + int(steps)
+
+        if current_state_index > len(states):
+            current_state_index = len(states)
 
         return_value = {
             "type": "increase",
@@ -71,6 +75,9 @@ def decrease(steps):
 
         global current_state_index
         current_state_index = current_state_index - int(steps)
+
+        if current_state_index < 0:
+            current_state_index = 0
 
         return_value = {
           "type": "decrease",
