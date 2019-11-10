@@ -7,7 +7,7 @@ import serial
 arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600)
 
 
-states = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12]
+states = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15]
 current_state_index = 0
 
 
