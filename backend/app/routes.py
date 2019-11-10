@@ -50,8 +50,8 @@ def increase(steps):
         global current_state_index
         current_state_index = current_state_index + int(steps)
 
-        if current_state_index > len(states):
-            current_state_index = len(states)
+        if current_state_index >= len(states):
+            current_state_index = 9
 
         return_value = {
             "type": "increase",
@@ -95,7 +95,7 @@ def decrease(steps):
 
 
 def check(steps):
-    if int(steps) > 10:
+    if int(steps) >= 10:
         return False
 
     return True
